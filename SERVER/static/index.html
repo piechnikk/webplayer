@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/jquery"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        #drag {
+            background-color: royalblue;
+            padding: 50px;
+            text-align: center;
+            color: white;
+            font-size: 32px;
+        }
+
+        #files>* {
+            border: 3px solid gray;
+            padding: 20px;
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="drag">przeciągnij pliki tutaj</div>
+    <div id="files"></div>
+    <script>
+        document.querySelector("html").ondragover = function (e) {
+            e.preventDefault(); // usuwa domyślne zachowanie strony po wykonaniu zdarzenia, warto zakomentować i sprawdzić
+            e.stopPropagation(); // zatrzymuje dalszą propagację zdarzenia, warto zakomentować i sprawdzić
+            document.getElementById("drag").innerText = "upuść tutaj"
+        }
+        document.getElementById("drag").ondragover = function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            document.getElementById("drag").innerText = "upuść"
+        }
+
+        document.getElementById("drag").ondrop = function (e) {
+
+            document.getElementById("drag").innerText = "upload"
+            e.stopPropagation();
+            e.preventDefault();
+
+            var files = e.dataTransfer.files;
+            console.log(files)
+            var fd = new FormData();
+            let div = document.getElementById("files")
+            for (let i = 0; i < files.length; i++) {
+                let child = document.createElement("div")
+                child.innerText = files[i].name
+                div.appendChild(child)
+
+                fd.append('file', files[i]);
+            }
+            $.ajax({
+                url: 'http://localhost:3000/upload',
+                type: 'POST',
+                data: fd,
+                contentType: false, // ajax nie określa typu przesyłanych danych
+                processData: false, // ajax w żaden sposób nie przetwarza danych
+                success: function (response) {
+                    console.log("dane", response);
+                },
+
+            })
+            // teraz utwórz obiekt FormData zastępujący formularz - patrz poprzednie lekcje z uploadem
+            // oraz dodaj do niego po kolei wszystkie pliki z powyższej listy files
+            // na koniec użyj dowolnej technologii do uploadu pliku/ów - patrz poprzednie lekcje
+
+        }
+    </script>
+</body>
+
+</html>
