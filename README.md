@@ -14,7 +14,7 @@ This is a web based music player built using JavaScript and Vue.js that plays so
 
 ## Live Demo
 
-Explore the [live demo](https://piechnikk.github.io/webplayer/) of the webplayer website.
+Explore the [live demo](https://piechnik.ct8.pl/webplayer/) of the webplayer website.
 
 ## Setup
 
