@@ -60,11 +60,9 @@ To upload your mp3 files to the server navigate to `http://localhost:3000/admin`
 ![server page](https://github.com/piechnikk/webplayer/assets/51060535/34ecf825-b9e7-432c-ab25-077a91fd6a53)
 ![uploaded](https://github.com/piechnikk/webplayer/assets/51060535/7e3a84e0-f02e-4f6f-952f-c7b08dc4f38b)
 
-
 - Client
 ![client main page](https://github.com/piechnikk/webplayer/assets/51060535/c4363e13-8287-44d2-87ec-018eaaf091f8)
 ![playlist](https://github.com/piechnikk/webplayer/assets/51060535/582d67df-fd0b-4c1a-b974-c78a80270f6a)
-
 
 ## Technologies
 
