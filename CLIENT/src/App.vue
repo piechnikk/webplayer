@@ -9,6 +9,7 @@
           v-for="i in json.dirs"
           :key="i"
           :path="i"
+          :url="url"
           :fetchx="fetchServe"
         ></cover>
       </div>
@@ -58,6 +59,9 @@ import Cover from "./components/Cover.vue";
 import Item from "./components/Item.vue";
 import pauseImg from "./assets/pause.png";
 import playImg from "./assets/play.png";
+
+const url = "http://localhost:3000"
+
 export default {
   components: { Cover, Item },
   name: "App",
@@ -68,6 +72,7 @@ export default {
       played: false,
       songNr: null,
       progressValue: 0,
+      url: url,
     };
   },
   methods: {
@@ -76,7 +81,7 @@ export default {
         method: "POST",
         body: JSON.stringify({ info: "next", file: file }),
       };
-      fetch("https://server-webplayer.ppiechnik.ct8.pl/files", requestOptions)
+      fetch(url+"/files", requestOptions)
         .then((response) => response.json())
         .then((data) => {
           this.json = data;
@@ -126,7 +131,7 @@ export default {
         if (this.json.actual == null)
           folder = this.json.files[this.songNr].folder;
         this.actualTitle = folder + "/" + this.json.files[this.songNr].file;
-        audio.src = "https://server-webplayer.ppiechnik.ct8.pl/mp3/" + this.actualTitle;
+        audio.src = url+"/mp3/" + this.actualTitle;
         setTimeout(function () {
           let allTimeMin = Math.floor(audio.duration / 60);
           let allTimeSec = Math.round(audio.duration - allTimeMin * 60);
@@ -152,7 +157,7 @@ export default {
       if (this.json.actual == null)
         folder = this.json.files[this.songNr].folder;
       this.actualTitle = folder + "/" + this.json.files[this.songNr].file;
-      audio.src = "https://server-webplayer.ppiechnik.ct8.pl/mp3/" + this.actualTitle;
+      audio.src = url+"/mp3/" + this.actualTitle;
       setTimeout(function () {
         let allTimeMin = Math.floor(audio.duration / 60);
         let allTimeSec = Math.round(audio.duration - allTimeMin * 60);
@@ -174,7 +179,7 @@ export default {
         folder = this.json.files[this.songNr].folder;
       this.actualTitle = folder + "/" + this.json.files[this.songNr].file;
       1;
-      audio.src = "https://server-webplayer.ppiechnik.ct8.pl/mp3/" + this.actualTitle;
+      audio.src = url+"/mp3/" + this.actualTitle;
       setTimeout(function () {
         let allTimeMin = Math.floor(audio.duration / 60);
         let allTimeSec = Math.round(audio.duration - allTimeMin * 60);
@@ -213,7 +218,7 @@ export default {
             size: this.json.files[id].size,
           }),
         };
-        fetch("https://server-webplayer.ppiechnik.ct8.pl/add", requestOptions)
+        fetch(url+"/add", requestOptions)
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
@@ -232,7 +237,7 @@ export default {
           get: "get",
         }),
       };
-      fetch("https://server-webplayer.ppiechnik.ct8.pl/getPlaylist", requestOptions)
+      fetch(url+"/getPlaylist", requestOptions)
         .then((response) => response.json())
         .then((data) => {
           this.json.files = data;
@@ -246,7 +251,7 @@ export default {
       method: "POST",
       body: JSON.stringify({ info: "first" }),
     };
-    fetch("https://server-webplayer.ppiechnik.ct8.pl/files", requestOptions)
+    fetch(url+"/files", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         this.json = data;

@@ -1,7 +1,7 @@
 <template>
   <div @click="click()">
     <img
-      :src="'https://server-webplayer.ppiechnik.ct8.pl/mp3/' + this.path + '/cover.jpg'"
+      :src="this.url+'/mp3/' + this.path + '/cover.jpg'"
       alt="okladka"
     />
   </div>
@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  props: ["path", "fetchx"],
+  props: ["path", "fetchx", "url"],
   methods: {
     click: function () {
       this.fetchx(this.path);
